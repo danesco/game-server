@@ -14,6 +14,20 @@ module.exports = (knex) => {
     });
   });
 
+  router.get('/scores', (req,res) => {
+    knex.select('score')
+      .from('game_data')
+      .then((results) => {
+        res.json(results);
+      });
+  })
+
+  router.post('/save', (req, res) => {
+    knex.insert({
+
+    })
+  })
+
   return router;
 }
 
