@@ -52,12 +52,7 @@ app.use("/api/users", usersRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  knex
-    .select("*")
-    .from("users")
-    .then((results) => {
-      res.json(results);
-  });
+  res.send("Suh dude");
 });
 
 app.listen(PORT, () => {
