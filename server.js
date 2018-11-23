@@ -55,6 +55,10 @@ app.get("/", (req, res) => {
   res.send("Suh dude");
 });
 
+app.get('/why', (req, res) => {
+  res.send("MOTHER FUCKER");
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
