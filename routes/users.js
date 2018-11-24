@@ -15,8 +15,9 @@ module.exports = (knex) => {
   });
 
   router.get('/scores', (req,res) => {
-    knex.select('score')
-      .from('game_data')
+    knex('users')
+    .select('name', 'score')
+      .join('game_data', 'users.id', '=', 'game_data.user_id')
       .orderBy('score', 'desc')
       .then((results) => {
         res.json(results);
