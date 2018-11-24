@@ -36,7 +36,8 @@ module.exports = {
     },
       seeds: {
       directory: './db/seeds'
-    }
+    },
+    acquireConnectionTimeout: 2
   }
 
 };
