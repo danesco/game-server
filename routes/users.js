@@ -6,9 +6,9 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
-    knex
-      .select("*")
-      .from("game_data")
+    knex('users')
+      .select('*')
+      .leftJoin('game_data', 'users.id', '=', 'game_data.user_id')
       .then((results) => {
         res.json(results);
     });
@@ -16,19 +16,36 @@ module.exports = (knex) => {
 
   router.get('/users/scores', (req,res) => {
     knex('users')
-    .select('name', 'score')
+      .select('name', 'score')
       .join('game_data', 'users.id', '=', 'game_data.user_id')
       .orderBy('score', 'desc')
       .then((results) => {
         res.json(results);
       });
-  })
+  });
 
-  router.post('/save', (req, res) => {
-    knex.insert({
+  // router.post('/user/save', (req, res) => {
+  //   let currentUser = req.body.user;
+  //   knex('game_data')
+  //     .where('user_id', '=', currentUser)
+  //     .insert({
 
-    })
-  })
+  //   })
+  // })
+
+  router.post('/register', (req, res) => {
+
+    const name = req.body.name;
+
+    if(name === ''){
+      res.status(404);
+    } else {
+        knex('users')
+          .insert({
+            name: name
+        })
+      }
+  });
 
   return router;
 }
