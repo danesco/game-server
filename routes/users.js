@@ -14,7 +14,7 @@ module.exports = (knex) => {
     });
   });
 
-  router.get('/scores', (req,res) => {
+  router.get('/users/scores', (req,res) => {
     knex('users')
     .select('name', 'score')
       .join('game_data', 'users.id', '=', 'game_data.user_id')
