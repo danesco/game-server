@@ -6,7 +6,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') {
 }
 
 const PORT        = process.env.PORT || 8080;
-const ENV         = process.env.ENV || "development";
+const ENV         = process.env.NODE_ENV || "development";
 const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
@@ -16,6 +16,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const { Client }  = require('pg');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -29,7 +30,15 @@ app.use(morgan('dev'));
 app.use(knexLogger(knex));
 
 
-app.set("view engine", "ejs");
+// const client = new Client({
+//   host: 'my.database-server.com',
+//   port: 5334,
+//   user: 'database-user',
+//   password: 'secretpassword!!',
+// })
+
+
+// app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
@@ -53,10 +62,6 @@ app.use("/api/users", usersRoutes(knex));
 // Home page
 app.get("/", (req, res) => {
   res.send("Suh dude");
-});
-
-app.get('/why', (req, res) => {
-  res.send("MOTHER FUCKER");
 });
 
 app.listen(PORT, () => {
