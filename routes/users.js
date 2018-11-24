@@ -6,7 +6,6 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
-    res.send("FUCK")
     knex
       .select("*")
       .from("users")
