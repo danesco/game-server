@@ -28,7 +28,8 @@ module.exports = {
     connection: process.env.DATABASE_URL + '?ssl=true',
     pool: {
       min: 2,
-      max: 10
+      max: 10,
+      requestTimeout: 1
     },
     migrations: {
       directory: './db/migrations',
