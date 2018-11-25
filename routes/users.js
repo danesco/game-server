@@ -7,8 +7,7 @@ const cookieSession = require('cookie-session');
 
 router.use(cookieSession({
   name: 'session',
-  keys: ["DAN"],
-  cookie: {path: '/', httpOnly: false}
+  keys: ["DAN"]
 }))
 
 module.exports = (knex) => {
