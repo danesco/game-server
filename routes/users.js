@@ -2,6 +2,14 @@
 
 const express = require('express');
 const router  = express.Router();
+const app = express();
+const cookieSession = require('cookie-session');
+
+router.use(cookieSession({
+  name: 'session',
+  keys: ["DAN"],
+  cookie: {path: '/', httpOnly: false}
+}))
 
 module.exports = (knex) => {
 
@@ -43,11 +51,16 @@ module.exports = (knex) => {
           if(currentName === ''){
             res.status(404);
           } else {
+            console.log("ID", req.session)
             knex('users')
               .insert({
                 name: currentName
             }).then((result) => {
+                req.session.id = 100;
                 res.json(currentName);
+                res.status(200);
+                console.log("ID2", req.session.id)
+                // res.redirect('/')
             })
           }
       }
