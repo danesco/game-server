@@ -35,18 +35,23 @@ module.exports = (knex) => {
 
   router.post('/register', (req, res) => {
 
-    const name = req.body.name;
-
-    if(name === ''){
-      res.status(404);
-    } else {
-        knex('users')
-          .insert({
-            name: name
-        }).then((result) => {
-          res.send(result);
-        })
+    const currentName = req.body.name;
+    knex('users').where('name', currentName).then((results) => {
+      if(results[0]){
+        res.send('Sorry that name has already been taken')
+      } else {
+          if(currentName === ''){
+            res.status(404);
+          } else {
+            knex('users')
+              .insert({
+                name: currentName
+            }).then((result) => {
+                res.json(currentName);
+            })
+          }
       }
+    })
   });
 
   router.post('/login', (req, res) => {
