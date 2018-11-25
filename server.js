@@ -16,7 +16,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
-const { Client }  = require('pg');
+
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -28,14 +28,6 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
-
-
-// const client = new Client({
-//   host: 'my.database-server.com',
-//   port: 5334,
-//   user: 'database-user',
-//   password: 'secretpassword!!',
-// })
 
 
 // app.set("view engine", "ejs");

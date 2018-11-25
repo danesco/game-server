@@ -2,6 +2,12 @@
 
 const express = require('express');
 const router  = express.Router();
+const cookieSession = require('cookie-session');
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ["DAN"],
+}))
 
 module.exports = (knex) => {
 
