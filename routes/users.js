@@ -43,9 +43,15 @@ module.exports = (knex) => {
         knex('users')
           .insert({
             name: name
+        }).then((result) => {
+          res.send(result);
         })
       }
   });
+
+  router.post('/login', (req, res) => {
+
+  })
 
   return router;
 }
