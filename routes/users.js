@@ -43,6 +43,7 @@ module.exports = (knex) => {
   router.post('/register', (req, res) => {
 
     const currentName = req.body.name;
+    console.log(req.body);
     knex('users').where('name', currentName).then((results) => {
       if(results[0]){
         res.send('Sorry that name has already been taken')
