@@ -67,10 +67,6 @@ module.exports = (knex) => {
     })
   });
 
-  router.post('/login', (req, res) => {
-
-  })
-
   return router;
 }
 
