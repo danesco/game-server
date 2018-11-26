@@ -40,33 +40,44 @@ module.exports = (knex) => {
   //   })
   // })
 
-  router.post('/register', (req, res) => {
+  // router.post('/reg', (req, res) => {
 
+  //   const currentName = req.body.name;
+  //   console.log(req.body);
+  //   knex('users').where('name', currentName).then((results) => {
+  //     if(results[0]){
+  //       res.send('Sorry that name has already been taken')
+  //     } else {
+  //         if(currentName === ''){
+  //           res.status(404);
+  //         } else {
+  //           console.log("ID", req.session)
+  //           knex('users')
+  //             .insert({
+  //               name: currentName
+  //           }).then((result) => {
+  //               req.session.id = 100;
+  //               res.json(currentName);
+  //               res.status(200);
+  //               console.log("ID2", req.session.id)
+  //               // res.redirect('/')
+  //           })
+  //         }
+  //     }
+  //   })
+  // });
+
+  router.post('/register', (req, res) => {
     const currentName = req.body.name;
-    console.log(req.body);
-    knex('users').where('name', currentName).then((results) => {
-      if(results[0]){
-        res.send('Sorry that name has already been taken')
-      } else {
-          if(currentName === ''){
-            res.status(404);
-          } else {
-            console.log("ID", req.session)
-            knex('users')
-              .insert({
-                name: currentName
-            }).then((result) => {
-                req.session.id = 100;
-                res.json(currentName);
-                res.status(200);
-                console.log("ID2", req.session.id)
-                // res.redirect('/')
-            })
-          }
-      }
+    const score = req.body.score;
+
+    knex('users').insert({
+      name: currentName
     })
+
   });
 
   return router;
 }
+
 
