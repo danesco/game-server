@@ -12,20 +12,19 @@ router.use(cookieSession({
 
 module.exports = (knex) => {
 
-  router.get("/", (req, res) => {
-    knex('users')
-      .select('*')
-      .leftJoin('game_data', 'users.id', '=', 'game_data.user_id')
-      .then((results) => {
-        res.json(results);
-    });
-  });
+  // router.get("/", (req, res) => {
+  //   knex('users')
+  //     .select('*')
+  //     .leftJoin('game_data', 'users.id', '=', 'game_data.user_id')
+  //     .then((results) => {
+  //       res.json(results);
+  //   });
+  // });
 
   router.get('/users/scores', (req,res) => {
-    knex('users')
-      .select('name', 'score')
-      .join('game_data', 'users.id', '=', 'game_data.user_id')
-      .orderBy('score', 'desc')
+    knex('high_scores')
+      .select('name', 'scores')
+      .orderBy('scores', 'desc')
       .then((results) => {
         res.json(results);
       });
@@ -71,10 +70,12 @@ module.exports = (knex) => {
     const currentName = req.body.name;
     const score = req.body.score;
 
-    knex('users').insert({
-      name: currentName
-    })
-
+    knex('high_scores').insert({
+      name: currentName,
+      scores: score
+    }).then(result => {
+        res.json(result);
+      });
   });
 
   return router;
